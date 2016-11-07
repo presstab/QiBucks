@@ -1687,7 +1687,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     if (nCredit == 0 || nCredit > nBalance - nReserveBalance)
         return false;
-
+/*
+ * AUTHOR: Presstab - This is causing the blockchain to stall because there are not enough unspent outputs to keep the chain moving.
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
     {
         // Attempt to add more inputs
@@ -1718,7 +1719,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             vwtxPrev.push_back(pcoin.first);
         }
     }
-
+*/
     // Calculate coin age reward
     {
         uint64_t nCoinAge;
