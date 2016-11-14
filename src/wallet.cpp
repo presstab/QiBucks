@@ -1586,8 +1586,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     CTxDB txdb("r");
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
     {
-       //if(pcoin.first->GetBlocksToMaturity() > 0)
-         //   continue;
+       if(pcoin.first->GetBlocksToMaturity() > 0)
+            continue;
 
         CTxIndex txindex;
         {
@@ -1732,7 +1732,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
         int64_t nReward = GetProofOfStakeReward(nCoinAge, nFees);
         if (nReward <= 0)
-            return false;
+            return error("CreateCoinStake : reward is less than or equal to 0");
 
         nCredit += nReward;
     }
